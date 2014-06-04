@@ -130,3 +130,18 @@ header h1 {
 #back-button:active {
     opacity: .4;
 }
+
+#error-message {
+    min-height: 50px;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    font-family: Arial;
+    color: rgb(255, 249, 242);
+    background-color: rgb(211, 0, 0);
+    text-align: center;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 5px 5px 2px #888;
+    -webkit-box-shadow: 5px 5px 2px #888;
+    box-shadow: 5px 5px 2px #888;
+}

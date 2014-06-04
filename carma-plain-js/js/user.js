@@ -101,7 +101,9 @@ var userService = function () {
      * @returns {Array}
      */
     var appendUserList = function (users) {
-        userList = userList.concat(users.map(apiTransform));
+        if(users) {
+            userList = userList.concat(users.map(apiTransform));
+        }
         return userList;
     };
 
@@ -115,8 +117,6 @@ var userService = function () {
         if(!page) {
             page = 1;
         }
-
-
          var client = new XMLHttpRequest();
          navigator.geolocation.getCurrentPosition(
          function (position) {
@@ -126,7 +126,12 @@ var userService = function () {
             client.responseType = 'json';
             client.onload = function () {
                 if (client.status === 200) {
-                    next(null, loadUserList(client.response.nearbyUsers), page);
+                    if(client.response.nearbyUsers && client.response.nearbyUsers.length && client.response.nearbyUsers.length > 0) {
+                        next(null, loadUserList(client.response.nearbyUsers), page);
+                    } else {
+                        next(new Error('No users found'));
+                    }
+
                 } else {
                     next(new Error('An error occurred: ' + client.status + ' ' + client.statusText));
                 }

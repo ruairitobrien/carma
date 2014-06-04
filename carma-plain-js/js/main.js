@@ -10,6 +10,7 @@ var resultDisplay = function () {
     var spinner = document.getElementById('spinner');
     var userSection = document.getElementById('users');
     var backButton = document.getElementById('back-button');
+    var errorMessage = document.getElementById('error-message');
 
     // To keep track of page navigation
     var pages = [];
@@ -24,8 +25,9 @@ var resultDisplay = function () {
      */
     function renderUsers(err, users, page) {
         hideLoading();
+        hideErrorMessage();
         if (err) {
-            alert(err.message);
+            showErrorMessage(err.message);
         } else {
             if (users && users.length > 0) {
                 var userUl = document.createElement('ul');
@@ -84,6 +86,20 @@ var resultDisplay = function () {
     }
 
     /**
+     * Displays an error message
+     *
+     * @param message
+     */
+    function showErrorMessage(message) {
+        errorMessage.style.display = "block";
+        errorMessage.innerHTML = message;
+    }
+
+    function hideErrorMessage() {
+        errorMessage.style.display = "none";
+    }
+
+    /**
      * Display the page at the given index
      *
      * @param pageIndex
@@ -113,6 +129,7 @@ var resultDisplay = function () {
      */
     function init() {
         backButton.style.display = "none";
+        errorMessage.style.display = "none";
 
         backButton.addEventListener('click', function () {
            navigateToPage(currentPageIndex - 1);
