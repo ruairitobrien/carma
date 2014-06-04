@@ -1,0 +1,24 @@
+<ion-view title="Local Carma Users">
+
+    <ion-content ng-controller="UserCtrl" class="has-header padding">
+
+        <ion-refresher on-refresh="doRefresh()" pulling-text="Update List" refreshing-text="Updating" refreshing-icon="ion-loading-c">
+        </ion-refresher>
+        <div class="list">
+            <div class="item item-thumbnail-left" ng-repeat="user in users" >
+                <img ng-src="{{user.photoURL}}">
+                <h2>{{user.alias}}</h2>
+                <p>Last Seen {{user.formattedLastSeenDateTime()}}</p>
+            </div>
+        </div>
+        <ion-infinite-scroll
+                class="list"
+                icon="ion-loading-c"
+                on-infinite="nextPage()"
+                distance="1">
+        </ion-infinite-scroll>
+
+    </ion-content>
+
+</ion-view>
+
